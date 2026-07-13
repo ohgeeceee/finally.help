@@ -1,0 +1,171 @@
+/* finally.help — single stylesheet. Dark by default; light via prefers-color-scheme. */
+
+:root {
+  --bg: #0b1020;
+  --fg: #f5f7ff;
+  --muted: #a8b2d1;
+  --accent: #7cc0ff;
+  --accent-2: #b9a8ff;
+  --card: #121833;
+  --border: #1f274a;
+  --danger: #ff8a8a;
+  --radius: 16px;
+  --shadow: 0 12px 36px rgba(0, 0, 0, 0.35);
+  --maxw: 720px;
+  --font: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg: #fafbff;
+    --fg: #0b1020;
+    --muted: #4a5374;
+    --card: #ffffff;
+    --border: #e6e9f5;
+    --shadow: 0 12px 36px rgba(0, 0, 0, 0.08);
+  }
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 56px 20px 80px;
+}
+
+.hero h1 {
+  font-size: clamp(2.5rem, 6vw, 3.5rem);
+  margin: 0 0 8px;
+  letter-spacing: -0.02em;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.hero .tag {
+  margin: 0 0 36px;
+  color: var(--muted);
+  font-size: 1.1rem;
+}
+
+.ask {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 28px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 6px;
+  background: var(--card);
+  box-shadow: var(--shadow);
+}
+.ask input {
+  flex: 1;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  padding: 14px 14px;
+  font-size: 1rem;
+  font-family: inherit;
+  outline: none;
+}
+.ask input::placeholder { color: var(--muted); }
+.ask button {
+  border: 0;
+  border-radius: 12px;
+  padding: 12px 18px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: #0b1020;
+  transition: transform 0.08s ease;
+}
+.ask button:hover { transform: translateY(-1px); }
+.ask button:disabled { opacity: 0.6; cursor: wait; transform: none; }
+
+.card {
+  border: 1px solid var(--border);
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 28px;
+  box-shadow: var(--shadow);
+  margin-top: 16px;
+}
+.card h2 {
+  margin: 0 0 18px;
+  font-size: 2rem;
+  letter-spacing: -0.01em;
+}
+.card h3 {
+  margin: 22px 0 6px;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+.card p { margin: 6px 0 0; font-size: 1.05rem; }
+.card ul { margin: 6px 0 0; padding-left: 1.2em; }
+.card li { margin: 4px 0; }
+.card hr { border: 0; border-top: 1px solid var(--border); margin: 24px 0 18px; }
+.card blockquote {
+  margin: 0;
+  padding: 14px 16px;
+  border-left: 3px solid var(--accent);
+  background: rgba(124, 192, 255, 0.08);
+  border-radius: 8px;
+  font-size: 0.95rem;
+  color: var(--muted);
+}
+.card blockquote code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  background: rgba(255, 255, 255, 0.06);
+  padding: 2px 6px;
+  border-radius: 4px;
+  color: var(--fg);
+}
+
+.loading p {
+  color: var(--muted);
+  text-align: center;
+  font-style: italic;
+}
+
+.error {
+  color: var(--danger);
+  margin-top: 16px;
+  font-size: 0.95rem;
+}
+
+.foot {
+  margin-top: 48px;
+  font-size: 0.85rem;
+  color: var(--muted);
+  text-align: center;
+}
+.foot a {
+  color: var(--muted);
+  text-decoration: none;
+  margin: 0 4px;
+}
+.foot a:hover { color: var(--accent); }
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

@@ -1,0 +1,4 @@
+# Static share routes: every URL under /[subject] serves index.html so the
+# client-side hash-based fallback can render. (Cards on /[subject].html are
+# pre-rendered separately; this is the dynamic safety net.)
+/* /index.html 200

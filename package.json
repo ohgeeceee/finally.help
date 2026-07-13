@@ -1,0 +1,15 @@
+{
+  "name": "finally-help",
+  "version": "0.1.0",
+  "private": true,
+  "description": "finally.help — paste something confusing, get a kid-friendly explanation. Static site on Cloudflare Pages.",
+  "license": "MIT",
+  "scripts": {
+    "dev": "wrangler pages dev --port 8788",
+    "deploy": "wrangler pages deploy .",
+    "preview": "wrangler pages dev"
+  },
+  "devDependencies": {
+    "wrangler": "^3.78.0"
+  }
+}
