@@ -1,0 +1,30 @@
+# Cloudflare Pages + Functions config for finally.help
+#
+# One-time setup (run these locally after `npm install`):
+#   1. Create the database:   npx wrangler d1 create finally-help-db
+#      -> copy the printed database_id into `database_id` below.
+#   2. Create local tables:   npx wrangler d1 execute finally-help-db --local  --file=schema.sql
+#   3. Create prod tables:    npx wrangler d1 execute finally-help-db --remote --file=schema.sql
+#
+# Local dev:  npx wrangler pages dev .
+# Secrets for the /api/explain LLM call go in .dev.vars (local) and the
+# Cloudflare dashboard (production) — see README.md.
+
+name = "finally-help"
+pages_build_output_dir = "."
+compatibility_date = "2024-09-23"
+compatibility_flags = ["nodejs_compat"]
+
+[[d1_databases]]
+binding = "DB"
+database_name = "finally-help-db"
+database_id = "REPLACE_WITH_DATABASE_ID_FROM_WRANGLER_D1_CREATE"
+
+# /api/explain KV cache layer. Run once:
+#   npx wrangler kv:namespace create EXPLAIN_CACHE
+#   npx wrangler kv:namespace create EXPLAIN_CACHE --preview
+# Paste the printed IDs into `id` and `preview_id` below.
+[[kv_namespaces]]
+binding = "EXPLAIN_CACHE"
+id = "REPLACE_WITH_KV_NAMESPACE_ID"
+preview_id = "REPLACE_WITH_KV_PREVIEW_ID"
