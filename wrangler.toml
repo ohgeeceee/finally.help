@@ -18,7 +18,7 @@ compatibility_flags = ["nodejs_compat"]
 [[d1_databases]]
 binding = "DB"
 database_name = "finally-help-db"
-database_id = "REPLACE_WITH_DATABASE_ID_FROM_WRANGLER_D1_CREATE"
+database_id = "903e1990-4f0a-4db7-9e29-923bd08e5bbc"
 
 # /api/explain KV cache layer. Run once:
 #   npx wrangler kv:namespace create EXPLAIN_CACHE
@@ -26,5 +26,9 @@ database_id = "REPLACE_WITH_DATABASE_ID_FROM_WRANGLER_D1_CREATE"
 # Paste the printed IDs into `id` and `preview_id` below.
 [[kv_namespaces]]
 binding = "EXPLAIN_CACHE"
-id = "REPLACE_WITH_KV_NAMESPACE_ID"
-preview_id = "REPLACE_WITH_KV_PREVIEW_ID"
+id = "196930c957cc45a286231b5c872c3cc8"
+preview_id = "196930c957cc45a286231b5c872c3cc8"
+
+# Cloudflare Workers AI — powers /api/explain (free tier, no external key).
+[ai]
+binding = "AI"

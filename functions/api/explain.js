@@ -5,9 +5,13 @@
 // definitions, a couple of **bold** key terms, and a final "> " takeaway line —
 // the same shape as the starter library, so everything renders identically.
 //
-// The LLM key is read ONLY here (env.LLM_API_KEY). The browser never sees it.
+// Runs on Cloudflare Workers AI (env.AI) — free tier, no external key.
 
 import { json, bad, readJson } from "../../lib/http.js";
+
+// Default open model. Override with the LLM_MODEL env var if you want a
+// different Workers AI model (e.g. "@cf/meta/llama-3.1-8b-instruct").
+const DEFAULT_MODEL = "@cf/meta/llama-3.3-70b-instruct-fp8-fast";
 
 const SYSTEM_PROMPT = `You are finally.help's explanation engine. Explain the user's topic so a 10-year-old instantly gets it, written for an adult who feels behind.
 
@@ -28,9 +32,9 @@ function looksAbusive(subject) {
   return /ignore (all|previous|the) |system prompt|api[_ ]?key|<script|\bpassword\b/.test(s);
 }
 
-// KV cache: keys are case/whitespace-normalized. Bump the `v1` prefix to
-// invalidate stale entries whenever SYSTEM_PROMPT changes meaningfully.
-const CACHE_PREFIX = "explain:v1:";
+// KV cache: keys are case/whitespace-normalized. Bump the `v` prefix to
+// invalidate stale entries whenever SYSTEM_PROMPT or the model changes.
+const CACHE_PREFIX = "explain:v2:";
 const CACHE_TTL_SECONDS = 60 * 60 * 24 * 30; // 30 days
 
 function cacheKey(subject) {
@@ -57,28 +61,18 @@ async function writeCache(env, subject, body) {
   }
 }
 
-async function callAnthropic(env, subject) {
-  const model = env.LLM_MODEL || "claude-sonnet-4-5";
-  const resp = await fetch("https://api.anthropic.com/v1/messages", {
-    method: "POST",
-    headers: {
-      "content-type": "application/json",
-      "x-api-key": env.LLM_API_KEY,
-      "anthropic-version": "2023-06-01",
-    },
-    body: JSON.stringify({
-      model,
-      max_tokens: 700,
-      system: SYSTEM_PROMPT,
-      messages: [{ role: "user", content: `Explain: ${subject}` }],
-    }),
+async function callWorkersAI(env, subject) {
+  const model = env.LLM_MODEL || DEFAULT_MODEL;
+  const out = await env.AI.run(model, {
+    messages: [
+      { role: "system", content: SYSTEM_PROMPT },
+      { role: "user", content: `Explain: ${subject}` },
+    ],
+    max_tokens: 700,
+    temperature: 0.6,
   });
-  if (!resp.ok) {
-    const t = await resp.text();
-    throw new Error(`anthropic ${resp.status}: ${t.slice(0, 200)}`);
-  }
-  const data = await resp.json();
-  let text = (data?.content?.[0]?.text || "").trim();
+  // Workers AI text models return { response: "..." }
+  let text = (out?.response ?? (typeof out === "string" ? out : "")).trim();
   text = text.replace(/^```[a-z]*\s*/i, "").replace(/```$/, "").trim();
   return text;
 }
@@ -90,14 +84,14 @@ export async function onRequestPost({ request, env }) {
   const subject = String(body.subject || "").trim().replace(/\s+/g, " ");
   if (subject.length < 2 || subject.length > 200) return bad("Topic must be 2–200 characters.");
   if (looksAbusive(subject)) return bad("Try a real topic to explain.");
-  if (!env.LLM_API_KEY) return bad("LLM_API_KEY not configured.", 500);
+  if (!env.AI) return bad("AI binding not configured.", 500);
 
   try {
     const cached = await readCache(env, subject);
     if (cached?.body) {
       return json({ subject, body: cached.body }, 200, { "cache-control": "no-store" });
     }
-    const text = await callAnthropic(env, subject);
+    const text = await callWorkersAI(env, subject);
     if (!text) return bad("Couldn't produce an explanation. Try rephrasing.", 502);
     await writeCache(env, subject, text);
     return json({ subject, body: text }, 200, { "cache-control": "no-store" });
