@@ -1,0 +1,6 @@
+# Copy this file to .dev.vars (which is gitignored) for local `wrangler pages dev`.
+# In production, set these in the Cloudflare Pages dashboard: Settings -> Variables.
+LLM_API_KEY=sk-ant-your-key-here
+LLM_MODEL=claude-sonnet-4-5
+# Optional but recommended in production: a long random string used to seal quiz tokens.
+GAME_SECRET=replace-with-a-long-random-string

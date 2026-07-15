@@ -1,0 +1,127 @@
+{
+  "meta": {
+    "project": "finally.help",
+    "description": "Searchable subjects and communities, broken down and explained like you're ten years old.",
+    "version": 2,
+    "explainLevel": "age-10"
+  },
+  "subjects": [
+    {
+      "id": "space",
+      "slug": "space",
+      "title": "Space",
+      "eli10": "Everything above the sky, all the way out forever. Stars, planets, and lots of empty dark in between.",
+      "communities": [
+        { "name": "r/space", "url": "https://www.reddit.com/r/space/" },
+        { "name": "r/askscience", "url": "https://www.reddit.com/r/askscience/" },
+        { "name": "NASA", "url": "https://www.nasa.gov/" }
+      ],
+      "subtopics": [
+        { "id": "sun-stars", "slug": "sun-and-stars", "title": "The Sun & Stars", "eli10": "The Sun is a giant ball of burning gas that gives us light and heat. Other stars are suns too, just really far away." },
+        { "id": "planets", "slug": "planets", "title": "Planets", "eli10": "Big round worlds that circle the Sun. Some are rocky like Earth, some are huge balls of gas like Jupiter." },
+        { "id": "moon", "slug": "the-moon", "title": "The Moon", "eli10": "A big rock that circles Earth. It has no light of its own, it just reflects the Sun like a mirror." },
+        { "id": "black-holes", "slug": "black-holes", "title": "Black Holes", "eli10": "A spot in space that pulls so hard that not even light can escape it. Like a drain that nothing climbs back out of." },
+        { "id": "rockets-astronauts", "slug": "rockets-and-astronauts", "title": "Rockets & Astronauts", "eli10": "Rockets push really hard to escape Earth's pull. Astronauts are the people who ride them into space." },
+        { "id": "galaxies", "slug": "galaxies", "title": "Galaxies", "eli10": "A giant group of billions of stars all stuck together by gravity. We live in one called the Milky Way." },
+        { "id": "comets-asteroids", "slug": "comets-and-asteroids", "title": "Comets & Asteroids", "eli10": "Chunks of rock and ice flying through space. Comets grow a glowing tail when they get close to the Sun." }
+      ]
+    },
+    {
+      "id": "human-body",
+      "slug": "human-body",
+      "title": "The Human Body",
+      "eli10": "The amazing machine you live in. Lots of parts all working together to keep you alive.",
+      "communities": [
+        { "name": "r/askscience", "url": "https://www.reddit.com/r/askscience/" },
+        { "name": "r/biology", "url": "https://www.reddit.com/r/biology/" },
+        { "name": "KidsHealth", "url": "https://kidshealth.org/" }
+      ],
+      "subtopics": [
+        { "id": "brain", "slug": "the-brain", "title": "The Brain", "eli10": "The boss of your body. It thinks, remembers, and sends messages to every part of you." },
+        { "id": "heart-blood", "slug": "heart-and-blood", "title": "The Heart & Blood", "eli10": "Your heart is a pump that pushes blood everywhere. Blood carries food and air to all your parts." },
+        { "id": "bones-muscles", "slug": "bones-and-muscles", "title": "Bones & Muscles", "eli10": "Bones are the hard frame that holds you up. Muscles pull on bones to make you move." },
+        { "id": "lungs-breathing", "slug": "lungs-and-breathing", "title": "Lungs & Breathing", "eli10": "Two stretchy bags in your chest that fill with air so your body can grab the oxygen it needs." },
+        { "id": "digestion", "slug": "digestion", "title": "Digestion", "eli10": "How your body breaks food into tiny bits it can use for energy, then gets rid of the leftovers." },
+        { "id": "five-senses", "slug": "the-five-senses", "title": "The Five Senses", "eli10": "Sight, hearing, smell, taste, and touch. The ways your body learns what's going on around you." },
+        { "id": "germs-immunity", "slug": "germs-and-immunity", "title": "Germs & Immunity", "eli10": "Germs are tiny things that can make you sick. Your immune system is the army that fights them off." }
+      ]
+    },
+    {
+      "id": "money",
+      "slug": "money",
+      "title": "Money",
+      "eli10": "The stuff people trade for things they need and want, instead of swapping chickens for shoes.",
+      "communities": [
+        { "name": "r/personalfinance", "url": "https://www.reddit.com/r/personalfinance/" },
+        { "name": "r/explainlikeimfive", "url": "https://www.reddit.com/r/explainlikeimfive/" },
+        { "name": "Investopedia", "url": "https://www.investopedia.com/" }
+      ],
+      "subtopics": [
+        { "id": "what-money-is", "slug": "what-money-is", "title": "What Money Is", "eli10": "A thing everyone agrees is worth something, so you can trade it for anything instead of trading stuff directly." },
+        { "id": "saving", "slug": "saving", "title": "Saving", "eli10": "Keeping some money instead of spending it all now, so you have it later when you need it." },
+        { "id": "spending-budgets", "slug": "spending-and-budgets", "title": "Spending & Budgets", "eli10": "A budget is a plan for your money, so you know how much you can spend without running out." },
+        { "id": "banks", "slug": "banks", "title": "Banks", "eli10": "A safe place to keep your money. They look after it and even pay you a little extra for leaving it there." },
+        { "id": "jobs-earning", "slug": "jobs-and-earning", "title": "Jobs & Earning", "eli10": "A job is work you do to help others, and they pay you money for it. That's how most people get money." },
+        { "id": "wants-vs-needs", "slug": "wants-vs-needs", "title": "Wants vs. Needs", "eli10": "Needs are things you must have, like food. Wants are things that are nice but you can live without, like toys." }
+      ]
+    },
+    {
+      "id": "history",
+      "slug": "history",
+      "title": "History",
+      "eli10": "The story of everything that happened before now, and the people who lived it.",
+      "communities": [
+        { "name": "r/history", "url": "https://www.reddit.com/r/history/" },
+        { "name": "r/AskHistorians", "url": "https://www.reddit.com/r/AskHistorians/" },
+        { "name": "History.com", "url": "https://www.history.com/" }
+      ],
+      "subtopics": [
+        { "id": "ancient-egypt", "slug": "ancient-egypt", "title": "Ancient Egypt", "eli10": "A civilization from thousands of years ago that built giant pyramids and wrote with little pictures called hieroglyphs." },
+        { "id": "dinosaurs-early-earth", "slug": "dinosaurs-and-early-earth", "title": "Dinosaurs & Early Earth", "eli10": "Long before people, giant reptiles called dinosaurs ruled the Earth for millions of years." },
+        { "id": "knights-castles", "slug": "knights-and-castles", "title": "Knights & Castles", "eli10": "Long ago, soldiers in metal armor called knights protected big stone forts called castles." },
+        { "id": "explorers", "slug": "explorers", "title": "Explorers", "eli10": "Brave people who traveled to places no one they knew had been, to map the world and find new lands." },
+        { "id": "inventions", "slug": "inventions-that-changed-the-world", "title": "Inventions That Changed the World", "eli10": "Big ideas like the wheel, the printing press, and electricity that changed how everyone lives." },
+        { "id": "wars-peace", "slug": "wars-and-peace", "title": "Wars & Peace", "eli10": "Sometimes groups of people fight over land or ideas. Peace is when they agree to stop and get along." }
+      ]
+    },
+    {
+      "id": "animals",
+      "slug": "animals",
+      "title": "Animals",
+      "eli10": "All the living creatures that move around, from tiny ants to giant whales.",
+      "communities": [
+        { "name": "r/Awwducational", "url": "https://www.reddit.com/r/Awwducational/" },
+        { "name": "r/biology", "url": "https://www.reddit.com/r/biology/" },
+        { "name": "National Geographic Kids", "url": "https://kids.nationalgeographic.com/" }
+      ],
+      "subtopics": [
+        { "id": "mammals", "slug": "mammals", "title": "Mammals", "eli10": "Animals with fur or hair that feed their babies milk, like dogs, humans, and elephants." },
+        { "id": "birds", "slug": "birds", "title": "Birds", "eli10": "Animals with feathers and beaks. Most can fly, and they lay eggs to have babies." },
+        { "id": "fish-ocean", "slug": "fish-and-ocean-life", "title": "Fish & Ocean Life", "eli10": "Creatures that live in water and breathe through gills instead of lungs. The ocean is full of them." },
+        { "id": "insects-bugs", "slug": "insects-and-bugs", "title": "Insects & Bugs", "eli10": "Tiny animals with six legs and hard bodies, like ants, bees, and beetles. There are millions of kinds." },
+        { "id": "reptiles-amphibians", "slug": "reptiles-and-amphibians", "title": "Reptiles & Amphibians", "eli10": "Reptiles like snakes have dry scales. Amphibians like frogs live part in water, part on land." },
+        { "id": "habitats", "slug": "habitats", "title": "Habitats", "eli10": "The natural home where an animal lives, like a forest, a desert, or the deep sea." },
+        { "id": "endangered-animals", "slug": "endangered-animals", "title": "Endangered Animals", "eli10": "Animals that are running out and might disappear forever, so people work hard to protect them." }
+      ]
+    },
+    {
+      "id": "computers",
+      "slug": "computers",
+      "title": "Computers",
+      "eli10": "Machines that follow instructions super fast to do math, play games, and connect the whole world.",
+      "communities": [
+        { "name": "r/explainlikeimfive", "url": "https://www.reddit.com/r/explainlikeimfive/" },
+        { "name": "r/learnprogramming", "url": "https://www.reddit.com/r/learnprogramming/" },
+        { "name": "Code.org", "url": "https://code.org/" }
+      ],
+      "subtopics": [
+        { "id": "what-computer-is", "slug": "what-a-computer-is", "title": "What a Computer Is", "eli10": "A machine that takes in information, follows step-by-step instructions, and gives you an answer or result." },
+        { "id": "internet", "slug": "the-internet", "title": "The Internet", "eli10": "A giant web of computers all over the world connected together so they can share information instantly." },
+        { "id": "coding", "slug": "coding", "title": "Coding", "eli10": "Writing step-by-step instructions in a special language that tells a computer exactly what to do." },
+        { "id": "apps-games", "slug": "apps-and-games", "title": "Apps & Games", "eli10": "Programs made for people to use. Apps help you do things, and games are apps made just for fun." },
+        { "id": "robots-ai", "slug": "robots-and-ai", "title": "Robots & AI", "eli10": "Robots are machines that can move and do jobs. AI is software that can learn and make choices, kind of like thinking." },
+        { "id": "online-safety", "slug": "staying-safe-online", "title": "Staying Safe Online", "eli10": "Rules for using the internet without getting tricked, like keeping passwords secret and not talking to strangers." }
+      ]
+    }
+  ]
+}

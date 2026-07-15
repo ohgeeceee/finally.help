@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>finally.help — explain anything like I'm 10</title>
+<style>
+  :root{
+    --bg:#f7f4ec; --card:#fffdf8; --ink:#2b2a26; --muted:#7a756a;
+    --accent:#e8683a; --accent-soft:#fce7dd; --line:#e7e1d4; --chip:#eef4ee;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:"Segoe UI",system-ui,-apple-system,sans-serif;
+    background:var(--bg);color:var(--ink);line-height:1.5}
+  .wrap{max-width:820px;margin:0 auto;padding:32px 20px 80px}
+  header{text-align:center;margin-bottom:26px}
+  .logo{font-size:34px;font-weight:800;letter-spacing:-.5px}
+  .logo span{color:var(--accent)}
+  .tag{color:var(--muted);margin-top:4px}
+  .searchbar{position:relative;margin:22px 0 8px}
+  #q{width:100%;padding:16px 48px 16px 20px;font-size:18px;border:2px solid var(--line);
+    border-radius:14px;background:var(--card);color:var(--ink);outline:none;transition:.15s}
+  #q:focus{border-color:var(--accent);box-shadow:0 0 0 4px var(--accent-soft)}
+  .searchbar svg{position:absolute;right:16px;top:50%;transform:translateY(-50%);color:var(--muted)}
+  .count{color:var(--muted);font-size:13px;min-height:18px;margin:2px 4px 14px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;
+    padding:18px 20px;margin-bottom:14px;box-shadow:0 1px 0 rgba(0,0,0,.02)}
+  .card h2{margin:0 0 2px;font-size:20px}
+  .crumb{color:var(--accent);font-size:12px;font-weight:700;text-transform:uppercase;
+    letter-spacing:.4px;margin-bottom:6px}
+  .eli{margin:6px 0 0;color:#3a382f}
+  .subs{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}
+  .sub{background:var(--chip);border:1px solid var(--line);border-radius:20px;
+    padding:5px 12px;font-size:13px;cursor:pointer;transition:.12s}
+  .sub:hover{background:var(--accent-soft);border-color:var(--accent)}
+  .comms{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;padding-top:12px;border-top:1px dashed var(--line)}
+  .comms .lbl{font-size:12px;color:var(--muted);align-self:center;margin-right:2px}
+  .comm{font-size:13px;color:var(--accent);text-decoration:none;font-weight:600}
+  .comm:hover{text-decoration:underline}
+  .comm.dyn{border-bottom:1px dotted var(--accent)}
+  mark{background:#ffe9a8;padding:0 2px;border-radius:3px}
+  .empty{text-align:center;color:var(--muted);padding:40px 0}
+  .hint{text-align:center;color:var(--muted);font-size:13px;margin-top:18px}
+  .surprise{display:inline-flex;align-items:center;gap:7px;margin-top:14px;padding:9px 18px;
+    font-size:15px;font-weight:700;color:#fff;background:var(--accent);border:none;
+    border-radius:22px;cursor:pointer;transition:.15s;box-shadow:0 2px 8px rgba(232,104,58,.28)}
+  .surprise:hover{transform:translateY(-1px);box-shadow:0 4px 14px rgba(232,104,58,.38)}
+  .surprise:active{transform:translateY(0)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="logo">finally<span>.help</span></div>
+    <div class="tag">Search anything. We'll explain it like you're ten.</div>
+  </header>
+
+  <div class="searchbar">
+    <input id="q" type="text" placeholder="Try: space, the brain, coding, money..." autocomplete="off" autofocus>
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+  </div>
+  <div style="text-align:center">
+    <button class="surprise" id="surprise">&#127922; Surprise me</button>
+  </div>
+  <div class="count" id="count"></div>
+  <div id="results"></div>
+  <div class="hint">Click a subtopic chip to zoom in, or hit Surprise me.</div>
+</div>
+
+<script>
+const DATA = {
+  "meta": { "project": "finally.help", "explainLevel": "age-10" },
+  "subjects": [
+    {
+      "id": "space", "slug": "space", "title": "Space",
+      "eli10": "Everything above the sky, all the way out forever. Stars, planets, and lots of empty dark in between.",
+      "communities": [
+        { "name": "r/space", "url": "https://www.reddit.com/r/space/" },
+        { "name": "r/askscience", "url": "https://www.reddit.com/r/askscience/" },
+        { "name": "NASA", "url": "https://www.nasa.gov/" }
+      ],
+      "subtopics": [
+        { "title": "The Sun & Stars", "eli10": "The Sun is a giant ball of burning gas that gives us light and heat. Other stars are suns too, just really far away." },
+        { "title": "Planets", "eli10": "Big round worlds that circle the Sun. Some are rocky like Earth, some are huge balls of gas like Jupiter." },
+        { "title": "The Moon", "eli10": "A big rock that circles Earth. It has no light of its own, it just reflects the Sun like a mirror." },
+        { "title": "Black Holes", "eli10": "A spot in space that pulls so hard that not even light can escape it. Like a drain that nothing climbs back out of." },
+        { "title": "Rockets & Astronauts", "eli10": "Rockets push really hard to escape Earth's pull. Astronauts are the people who ride them into space." },
+        { "title": "Galaxies", "eli10": "A giant group of billions of stars all stuck together by gravity. We live in one called the Milky Way." },
+        { "title": "Comets & Asteroids", "eli10": "Chunks of rock and ice flying through space. Comets grow a glowing tail when they get close to the Sun." }
+      ]
+    },
+    {
+      "id": "human-body", "slug": "human-body", "title": "The Human Body",
+      "eli10": "The amazing machine you live in. Lots of parts all working together to keep you alive.",
+      "communities": [
+        { "name": "r/askscience", "url": "https://www.reddit.com/r/askscience/" },
+        { "name": "r/biology", "url": "https://www.reddit.com/r/biology/" },
+        { "name": "KidsHealth", "url": "https://kidshealth.org/" }
+      ],
+      "subtopics": [
+        { "title": "The Brain", "eli10": "The boss of your body. It thinks, remembers, and sends messages to every part of you." },
+        { "title": "The Heart & Blood", "eli10": "Your heart is a pump that pushes blood everywhere. Blood carries food and air to all your parts." },
+        { "title": "Bones & Muscles", "eli10": "Bones are the hard frame that holds you up. Muscles pull on bones to make you move." },
+        { "title": "Lungs & Breathing", "eli10": "Two stretchy bags in your chest that fill with air so your body can grab the oxygen it needs." },
+        { "title": "Digestion", "eli10": "How your body breaks food into tiny bits it can use for energy, then gets rid of the leftovers." },
+        { "title": "The Five Senses", "eli10": "Sight, hearing, smell, taste, and touch. The ways your body learns what's going on around you." },
+        { "title": "Germs & Immunity", "eli10": "Germs are tiny things that can make you sick. Your immune system is the army that fights them off." }
+      ]
+    },
+    {
+      "id": "money", "slug": "money", "title": "Money",
+      "eli10": "The stuff people trade for things they need and want, instead of swapping chickens for shoes.",
+      "communities": [
+        { "name": "r/personalfinance", "url": "https://www.reddit.com/r/personalfinance/" },
+        { "name": "r/explainlikeimfive", "url": "https://www.reddit.com/r/explainlikeimfive/" },
+        { "name": "Investopedia", "url": "https://www.investopedia.com/" }
+      ],
+      "subtopics": [
+        { "title": "What Money Is", "eli10": "A thing everyone agrees is worth something, so you can trade it for anything instead of trading stuff directly." },
+        { "title": "Saving", "eli10": "Keeping some money instead of spending it all now, so you have it later when you need it." },
+        { "title": "Spending & Budgets", "eli10": "A budget is a plan for your money, so you know how much you can spend without running out." },
+        { "title": "Banks", "eli10": "A safe place to keep your money. They look after it and even pay you a little extra for leaving it there." },
+        { "title": "Jobs & Earning", "eli10": "A job is work you do to help others, and they pay you money for it. That's how most people get money." },
+        { "title": "Wants vs. Needs", "eli10": "Needs are things you must have, like food. Wants are things that are nice but you can live without, like toys." }
+      ]
+    },
+    {
+      "id": "history", "slug": "history", "title": "History",
+      "eli10": "The story of everything that happened before now, and the people who lived it.",
+      "communities": [
+        { "name": "r/history", "url": "https://www.reddit.com/r/history/" },
+        { "name": "r/AskHistorians", "url": "https://www.reddit.com/r/AskHistorians/" },
+        { "name": "History.com", "url": "https://www.history.com/" }
+      ],
+      "subtopics": [
+        { "title": "Ancient Egypt", "eli10": "A civilization from thousands of years ago that built giant pyramids and wrote with little pictures called hieroglyphs." },
+        { "title": "Dinosaurs & Early Earth", "eli10": "Long before people, giant reptiles called dinosaurs ruled the Earth for millions of years." },
+        { "title": "Knights & Castles", "eli10": "Long ago, soldiers in metal armor called knights protected big stone forts called castles." },
+        { "title": "Explorers", "eli10": "Brave people who traveled to places no one they knew had been, to map the world and find new lands." },
+        { "title": "Inventions That Changed the World", "eli10": "Big ideas like the wheel, the printing press, and electricity that changed how everyone lives." },
+        { "title": "Wars & Peace", "eli10": "Sometimes groups of people fight over land or ideas. Peace is when they agree to stop and get along." }
+      ]
+    },
+    {
+      "id": "animals", "slug": "animals", "title": "Animals",
+      "eli10": "All the living creatures that move around, from tiny ants to giant whales.",
+      "communities": [
+        { "name": "r/Awwducational", "url": "https://www.reddit.com/r/Awwducational/" },
+        { "name": "r/biology", "url": "https://www.reddit.com/r/biology/" },
+        { "name": "Nat Geo Kids", "url": "https://kids.nationalgeographic.com/" }
+      ],
+      "subtopics": [
+        { "title": "Mammals", "eli10": "Animals with fur or hair that feed their babies milk, like dogs, humans, and elephants." },
+        { "title": "Birds", "eli10": "Animals with feathers and beaks. Most can fly, and they lay eggs to have babies." },
+        { "title": "Fish & Ocean Life", "eli10": "Creatures that live in water and breathe through gills instead of lungs. The ocean is full of them." },
+        { "title": "Insects & Bugs", "eli10": "Tiny animals with six legs and hard bodies, like ants, bees, and beetles. There are millions of kinds." },
+        { "title": "Reptiles & Amphibians", "eli10": "Reptiles like snakes have dry scales. Amphibians like frogs live part in water, part on land." },
+        { "title": "Habitats", "eli10": "The natural home where an animal lives, like a forest, a desert, or the deep sea." },
+        { "title": "Endangered Animals", "eli10": "Animals that are running out and might disappear forever, so people work hard to protect them." }
+      ]
+    },
+    {
+      "id": "computers", "slug": "computers", "title": "Computers",
+      "eli10": "Machines that follow instructions super fast to do math, play games, and connect the whole world.",
+      "communities": [
+        { "name": "r/explainlikeimfive", "url": "https://www.reddit.com/r/explainlikeimfive/" },
+        { "name": "r/learnprogramming", "url": "https://www.reddit.com/r/learnprogramming/" },
+        { "name": "Code.org", "url": "https://code.org/" }
+      ],
+      "subtopics": [
+        { "title": "What a Computer Is", "eli10": "A machine that takes in information, follows step-by-step instructions, and gives you an answer or result." },
+        { "title": "The Internet", "eli10": "A giant web of computers all over the world connected together so they can share information instantly." },
+        { "title": "Coding", "eli10": "Writing step-by-step instructions in a special language that tells a computer exactly what to do." },
+        { "title": "Apps & Games", "eli10": "Programs made for people to use. Apps help you do things, and games are apps made just for fun." },
+        { "title": "Robots & AI", "eli10": "Robots are machines that can move and do jobs. AI is software that can learn and make choices, kind of like thinking." },
+        { "title": "Staying Safe Online", "eli10": "Rules for using the internet without getting tricked, like keeping passwords secret and not talking to strangers." }
+      ]
+    }
+  ]
+};
+
+const $q = document.getElementById('q');
+const $results = document.getElementById('results');
+const $count = document.getElementById('count');
+
+function esc(s){return s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+function hl(text, terms){
+  let out = esc(text);
+  terms.filter(Boolean).forEach(t=>{
+    const re = new RegExp('('+t.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','ig');
+    out = out.replace(re,'<mark>$1</mark>');
+  });
+  return out;
+}
+
+function buildIndex(){
+  const rows=[];
+  DATA.subjects.forEach(s=>{
+    rows.push({type:'subject', subject:s, title:s.title, eli10:s.eli10,
+      hay:(s.title+' '+s.eli10).toLowerCase()});
+    s.subtopics.forEach(sub=>{
+      rows.push({type:'sub', subject:s, sub, title:sub.title, eli10:sub.eli10,
+        hay:(sub.title+' '+sub.eli10+' '+s.title).toLowerCase()});
+    });
+  });
+  return rows;
+}
+const INDEX = buildIndex();
+
+function render(query){
+  const terms = query.trim().toLowerCase().split(/\s+/).filter(Boolean);
+  let rows;
+  if(!terms.length){
+    rows = INDEX.filter(r=>r.type==='subject');
+    $count.textContent = rows.length+' subjects — start typing to dig in';
+  } else {
+    rows = INDEX.filter(r=>terms.every(t=>r.hay.includes(t)));
+    $count.textContent = rows.length+' result'+(rows.length===1?'':'s')+' for "'+query.trim()+'"';
+  }
+  if(!rows.length){
+    $results.innerHTML = '<div class="empty">No match yet. Try a simpler word like "space" or "money".</div>';
+    return;
+  }
+  $results.innerHTML = rows.map(r=>{
+    const s = r.subject;
+    const crumb = r.type==='sub' ? s.title : 'Subject';
+    const comms = s.communities.map(c=>'<a class="comm" href="'+c.url+'" target="_blank" rel="noopener">'+esc(c.name)+'</a>').join('');
+    const redditUrl = 'https://www.reddit.com/search/?q='+encodeURIComponent(r.title);
+    const dyn = '<a class="comm dyn" href="'+redditUrl+'" target="_blank" rel="noopener">Search Reddit for "'+esc(r.title)+'"</a>';
+    const subs = r.type==='subject'
+      ? '<div class="subs">'+s.subtopics.map(x=>'<span class="sub" data-q="'+esc(x.title)+'">'+esc(x.title)+'</span>').join('')+'</div>'
+      : '';
+    return '<div class="card">'
+      + '<div class="crumb">'+esc(crumb)+'</div>'
+      + '<h2>'+hl(r.title, terms)+'</h2>'
+      + '<p class="eli">'+hl(r.eli10, terms)+'</p>'
+      + subs
+      + '<div class="comms"><span class="lbl">Communities:</span>'+comms+dyn+'</div>'
+      + '</div>';
+  }).join('');
+
+  $results.querySelectorAll('.sub').forEach(el=>{
+    el.addEventListener('click',()=>{ $q.value = el.dataset.q; render($q.value); $q.focus(); });
+  });
+}
+
+$q.addEventListener('input', ()=>render($q.value));
+
+let lastPick = -1;
+document.getElementById('surprise').addEventListener('click', ()=>{
+  const subs = DATA.subjects;
+  let i;
+  do { i = Math.floor(Math.random()*subs.length); } while(subs.length>1 && i===lastPick);
+  lastPick = i;
+  $q.value = subs[i].title;
+  render($q.value);
+  window.scrollTo({top:0, behavior:'smooth'});
+});
+
+render('');
+</script>
+</body>
+</html>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      

@@ -4,69 +4,98 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>finally.help — finally makes sense.</title>
-    <meta name="description" content="Paste anything confusing. Get a kid-friendly explanation in under 45 seconds." />
+    <meta name="description" content="The stuff everyone assumes you already know, explained like you're 10. No jargon. No judgment." />
     <meta property="og:title" content="finally.help — finally makes sense." />
-    <meta property="og:description" content="Paste anything confusing. Get a kid-friendly explanation in under 45 seconds." />
+    <meta property="og:description" content="The stuff everyone assumes you already know, explained like you're 10. No jargon. No judgment." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://finally.help/" />
-    <meta property="og:image" content="https://finally.help/og.png" />
-    <meta name="theme-color" content="#0b1020" />
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230b1020'/%3E%3Ctext x='50%25' y='56%25' font-family='system-ui' font-size='40' text-anchor='middle' fill='%23fff'%3E?%3C/text%3E%3C/svg%3E" />
-    <link rel="stylesheet" href="/styles.css" />
+    <meta name="theme-color" content="#faf6f0" />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23faf6f0'/%3E%3Ctext x='50%25' y='70%25' font-family='system-ui' font-size='46' font-weight='800' text-anchor='middle' fill='%23e8734a'%3E.%3C/text%3E%3Ctext x='50%25' y='58%25' font-family='system-ui' font-size='30' font-weight='800' text-anchor='middle' fill='%232b2420'%3Ef%3C/text%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <main class="page">
-      <header class="hero">
-        <h1>finally.help</h1>
-        <p class="tag">Paste anything confusing. Get a kid-friendly explanation in under 45 seconds.</p>
+    <div class="wrap">
+      <div class="account-bar" id="accountBar"></div>
+
+      <header class="site">
+        <div class="brandrow">
+          <span class="logo-mark" aria-hidden="true">f</span>
+          <div class="logo">finally<span class="dot">.</span></div>
+        </div>
+        <div class="tagline">The stuff everyone assumes you already know — finally explained like you're ten. No jargon. No judgment.</div>
+        <div class="hero-stats">
+          <div class="hstat"><b>12M+</b><span>explanations served</span></div>
+          <div class="hstat"><b>180+</b><span>countries reached</span></div>
+          <div class="hstat"><b>4.9&#9733;</b><span>average rating</span></div>
+          <div class="hstat"><b>2,400+</b><span>topics covered</span></div>
+        </div>
       </header>
 
-      <form id="ask" class="ask" autocomplete="off">
-        <label for="subject" class="sr-only">What should finally make sense?</label>
-        <input
-          id="subject"
-          name="subject"
-          type="text"
-          placeholder="e.g. blockchain, sleep, quantum tunneling…"
-          required
-          minlength="2"
-          maxlength="200"
-        />
-        <button type="submit" id="go">Make it make sense →</button>
-      </form>
+      <div class="tabs" id="tabs">
+        <button class="tab active" data-view="browse">Browse</button>
+        <button class="tab" data-view="create">Explain something to me</button>
+        <button class="tab" data-view="play">Play</button>
+        <button class="tab" data-view="shop">Shop</button>
+      </div>
 
-      <article id="card" class="card" hidden>
-        <h2 id="c-title"></h2>
-        <section>
-          <h3>The Big Picture</h3>
-          <p id="c-big"></p>
-        </section>
-        <section>
-          <h3>How It Works (The Analogy)</h3>
-          <p id="c-ana"></p>
-        </section>
-        <section>
-          <h3>Key Words To Know</h3>
-          <ul id="c-terms"></ul>
-        </section>
-        <hr />
-        <blockquote>
-          🤯 <strong>Did you get it?</strong> Share this explanation using
-          <code id="c-share">finally.help/&lt;subject&gt;</code> to help someone else make sense of it!
-        </blockquote>
-      </article>
+      <section id="browse"></section>
+      <section id="reader" hidden></section>
+      <section id="create" hidden></section>
+      <section id="play" hidden></section>
+      <section id="shop" hidden></section>
 
-      <article id="loading" class="card loading" hidden>
-        <p>Thinking…</p>
-      </article>
+      <section class="proof">
+        <div class="proof-head">Loved by curious minds in 180+ countries</div>
+        <div class="proof-quotes">
+          <figure class="pquote">
+            <div class="stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <blockquote>"My kid asked how black holes work and for once I had a real answer. Our go-to for every 'why'."</blockquote>
+            <figcaption><span class="pav">MR</span> Maria R. &middot; Parent, Spain</figcaption>
+          </figure>
+          <figure class="pquote">
+            <div class="stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <blockquote>"I use it to reset a tricky topic in plain language before we go deep. The kids finally lean in."</blockquote>
+            <figcaption><span class="pav">DT</span> David T. &middot; Teacher, USA</figcaption>
+          </figure>
+          <figure class="pquote">
+            <div class="stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <blockquote>"The friendliest place on the internet to learn something new. No gatekeeping, just clear answers."</blockquote>
+            <figcaption><span class="pav">AK</span> Aisha K. &middot; Lifelong learner, UK</figcaption>
+          </figure>
+        </div>
+        <div class="trustlogos">
+          <span>Brightpath Academy</span><span>Lumen Ed</span><span>ParentHub</span><span>ScholarNest</span><span>CuriosityLab</span>
+        </div>
+      </section>
 
-      <p id="error" class="error" hidden></p>
-
-      <footer class="foot">
-        <a href="/about.html">about</a> · <a href="/examples.html">examples</a> · <a href="https://github.com/ohgeeceee/finally.help">source</a>
+      <footer>
+        finally. — <a href="about.html">about</a> &middot;
+        <a href="https://github.com/ohgeeceee/finally.help">source</a>
       </footer>
-    </main>
+    </div>
 
-    <script src="/app.js" defer></script>
+    <div class="modal-back" id="modal">
+      <div class="modal">
+        <button class="close" id="mClose" aria-label="Close">&times;</button>
+        <h3 id="mTitle">Welcome back</h3>
+        <div class="sub">Save your points, streak, and unlocked games.</div>
+        <div class="mtabs">
+          <button class="mtab active" data-mode="login">Log in</button>
+          <button class="mtab" data-mode="register">Register</button>
+        </div>
+        <input id="mUser" placeholder="Username" autocomplete="username" />
+        <input id="mPass" type="password" placeholder="Password" autocomplete="current-password" />
+        <div id="mAvatarWrap" hidden>
+          <div style="font-size:13px;color:var(--ink-soft);margin-bottom:4px">Pick a starter avatar:</div>
+          <div class="avatar-pick" id="mAvatars"></div>
+        </div>
+        <div class="err" id="mErr"></div>
+        <button class="btn" id="mSubmit">Log in</button>
+        <div class="fineprint">Passwords are salted &amp; hashed (PBKDF2) — never stored in plain text.</div>
+      </div>
+    </div>
+
+    <div id="toasts"></div>
+    <script src="app.js" defer></script>
   </body>
 </html>

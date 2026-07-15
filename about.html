@@ -7,34 +7,21 @@
     <link rel="stylesheet" href="/styles.css" />
   </head>
   <body>
-    <main class="page">
-      <header class="hero">
-        <h1>about</h1>
-        <p class="tag">
-          finally.help is a single-purpose tool: paste something confusing,
-          walk away with an explanation a 10-year-old could follow.
-        </p>
+    <div class="wrap">
+      <header class="site">
+        <div class="logo">finally<span class="dot">.</span></div>
+        <div class="tagline">The stuff everyone assumes you already know. No jargon. No judgment.</div>
       </header>
-      <article class="card">
-        <h2>why</h2>
-        <p>
-          Most “explainers” either over-talk past what you need or strip a topic
-          down to nonsense. We aim for one clean analogy, two or three terms,
-          and a card you can send to a coworker without apology.
-        </p>
-        <h2>how</h2>
-        <p>
-          The site is a static page on Cloudflare Pages. Explanations are
-          generated on demand by a single LLM call wrapped in a Cloudflare
-          Worker, so your API key never ends up in the browser.
-        </p>
-        <h2>who</h2>
-        <p>
-          Built and maintained by <a href="https://github.com/ohgeeceee">ohgeeceee</a>.
-          Open source. MIT.
-        </p>
-      </article>
-      <footer class="foot"><a href="/">← back home</a></footer>
-    </main>
+      <div class="reader-card">
+        <h2>Why this exists</h2>
+        <p>Most explainers either talk past what you need or strip a topic down to nonsense. finally.help gives you one clean everyday analogy, a couple of plain-word definitions, and a one-line takeaway you can actually remember — written for a grown-up who feels behind, never in a way that talks down to you.</p>
+        <h2>How it works</h2>
+        <p>Browse a growing library of explainers, or type any topic and get a fresh one on the spot. Reading, quizzing, and writing your own explainers earns points and unlocks little games — because the best way to learn something is to come back tomorrow and do it again.</p>
+        <h2>Under the hood</h2>
+        <p>A static site on Cloudflare Pages with a small set of serverless functions and a Cloudflare D1 database for accounts and comments. Explanations come from a single LLM call wrapped server-side, so the API key never reaches your browser. Passwords are salted and hashed; the source is open.</p>
+        <p style="color:var(--ink-soft)">Built by <a href="https://github.com/ohgeeceee">ohgeeceee</a>. MIT licensed.</p>
+      </div>
+      <footer><a href="/">← back home</a></footer>
+    </div>
   </body>
 </html>

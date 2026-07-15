@@ -1,39 +1,38 @@
 # DEPLOY.md — finally.help to Cloudflare Pages
 
-Manual because I didn't want to commit anything to your Cloudflare account without you.
+## 1. Push to GitHub
+Repo: `ohgeeceee/finally.help` (public).
 
-## One-time setup
+## 2. Create the Pages project
+- Cloudflare dashboard -> Workers & Pages -> Create -> Pages -> connect the GitHub repo.
+- Build command: none. Output directory: `/` (root). It's a static site with Functions.
 
-1. Log into Cloudflare. Create a Pages project named `finally-help` connected to this GitHub repo (`ohgeeceee/finally.help`).
-2. **Build settings:** leave blank. Cloudflare Pages detects a static site by default. There's no build command — `index.html` at the root is the entry.
-3. **Environment variables** (Settings → Variables → Production):
-   - `LLM_API_KEY` — your provider key (Anthropic / OpenAI / etc.)
-   - `LLM_MODEL` — the model id you want it to use, e.g. `claude-sonnet-4-5`
+## 3. Create and bind the D1 database
+```bash
+npx wrangler d1 create finally-help-db          # copy database_id into wrangler.toml
+npx wrangler d1 execute finally-help-db --remote --file=schema.sql
+```
+In the Pages project: Settings -> Functions -> D1 database bindings -> add binding
+`DB` -> `finally-help-db`.
 
-## DNS
+## 4. Environment variables (Settings -> Variables -> Production)
+- `LLM_API_KEY` — your Anthropic key. Put a spend cap on it.
+- `LLM_MODEL` — e.g. `claude-sonnet-4-5`
+- `GAME_SECRET` — a long random string.
 
-In your registrar (where you bought `finally.help` and `finallymakesense.com`):
+## 5. DNS
+Add `finally.help` (and `www`) inside the Pages project's Custom Domains — Cloudflare
+sets the records automatically. Repeat for `finallymakesense.com` if you want it as a
+second domain (or 301 one to the other).
 
-- Point `finally.help` and `www.finally.help` at the Pages project. Easiest: add the domain inside the Pages project — Cloudflare will auto-set the CNAME/A records.
-- Repeat for `finallymakesense.com` if you want the canonical to live there too (then `finally.help` just 301s).
-
-## What gets deployed
-
-- Everything in this repo at the root is served. `index.html`, `/styles.css`, `/app.js`, `/[subject].html` files, and `functions/api/explain.js`.
-- `functions/` is treated as Pages Functions by Cloudflare. `/_headers` and `/_redirects` are honoured automatically.
-
-## Smoke test
-
-After the first deploy:
-
+## 6. Smoke test
 ```bash
 curl -s https://finally.help/ | head -5
+curl -s https://finally.help/api/library | head -c 200
 curl -sX POST https://finally.help/api/explain -H 'content-type: application/json' -d '{"subject":"blockchain"}'
 ```
 
-You should see the index HTML and a JSON response with the explanation.
-
 ## Limits
-
-- Cloudflare Pages Functions: 100k requests/day on free tier. Fine for v0.
-- LLM spend: out of Cloudflare's hands. Put a spend cap on your provider key.
+- Pages Functions: 100k requests/day on the free tier.
+- D1 free tier: generous for launch.
+- LLM spend is on your provider key — keep the cap on.
